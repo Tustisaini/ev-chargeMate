@@ -20,7 +20,7 @@ export default function AuthScreen({ navigation }) {
 
       setEmail('');
       setPassword('');
-      navigation.replace('HomeScreen'); // go to HomeScreen
+      navigation.replace('Home'); // go to HomeScreen
     } catch (err) {
       alert(err.message);
     }

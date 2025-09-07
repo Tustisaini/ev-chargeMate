@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -11,10 +12,29 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="LandingPage" component={LandingPage} />
-        <Stack.Screen name="AuthScreen" component={AuthScreen} />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Navigator
+        initialRouteName="Landing"
+        screenOptions={{
+          headerShown: true,
+          headerTitleAlign: 'center',
+          headerStyle: { backgroundColor: '#fff' },
+        }}
+      >
+        <Stack.Screen
+          name="Landing"
+          component={LandingPage}
+          options={{ headerShown: false }} // full screen landing page
+        />
+        <Stack.Screen
+          name="Auth"
+          component={AuthScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }} // drawer handles header
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

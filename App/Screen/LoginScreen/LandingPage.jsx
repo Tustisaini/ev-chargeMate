@@ -58,7 +58,7 @@ export default function LandingPage({ navigation }) {
       </Animated.View>
 
       <TouchableOpacity
-        onPress={() => navigation.replace('AuthScreen')}
+        onPress={() => navigation.replace('Auth')}
         style={styles.getStartedButton}
       >
         <Text style={styles.getStartedText}>Get Started</Text>

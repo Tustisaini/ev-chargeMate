@@ -1,18 +1,46 @@
+// App/Screen/HomeScreen/HomeScreen.jsx
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 
 function HomeTab() {
-  return <View style={styles.tabContainer}>{/* Home content */}</View>;
+  return (
+    <View style={styles.tabContainer}>
+      <Image
+        source={require('../../../assets/images/ev_logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+      {/* Home content */}
+    </View>
+  );
 }
 
 function FavouriteTab() {
-  return <View style={styles.tabContainer}>{/* Favourites content */}</View>;
+  return (
+    <View style={styles.tabContainer}>
+      <Image
+        source={require('../../../assets/images/ev_logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+      {/* Favourites content */}
+    </View>
+  );
 }
 
 function ProfileTab() {
-  return <View style={styles.tabContainer}>{/* Profile content */}</View>;
+  return (
+    <View style={styles.tabContainer}>
+      <Image
+        source={require('../../../assets/images/ev_logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+      {/* Profile content */}
+    </View>
+  );
 }
 
 const Tab = createBottomTabNavigator();
@@ -29,10 +57,9 @@ export default function HomeScreen() {
       }}
     >
       <Tab.Screen
-        name="HomeTab"
+        name="Home"
         component={HomeTab}
         options={{
-          tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => <MaterialIcons name="home" color={color} size={size} />,
         }}
       />
@@ -40,7 +67,6 @@ export default function HomeScreen() {
         name="Favourites"
         component={FavouriteTab}
         options={{
-          tabBarLabel: 'Favourites',
           tabBarIcon: ({ color, size }) => <MaterialIcons name="favorite" color={color} size={size} />,
         }}
       />
@@ -48,7 +74,6 @@ export default function HomeScreen() {
         name="Profile"
         component={ProfileTab}
         options={{
-          tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => <MaterialIcons name="person" color={color} size={size} />,
         }}
       />
@@ -57,5 +82,14 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  tabContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  tabContainer: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 20,
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    marginBottom: 20,
+  },
 });
