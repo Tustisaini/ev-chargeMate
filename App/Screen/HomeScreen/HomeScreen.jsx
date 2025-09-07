@@ -3,42 +3,52 @@ import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
+import AppMapView from './AppMapView';
 
+// 🔹 Sticky Logo Overlay (always on top)
+function LogoOverlay() {
+  return (
+    <View style={styles.logoContainer}>
+      <Image
+        source={require('../../../assets/images/ev_logo.png')}
+        style={styles.logo}
+      />
+    </View>
+  );
+}
+
+// Home Tab with Map
 function HomeTab() {
   return (
-    <View style={styles.tabContainer}>
-      <Image
-        source={require('../../../assets/images/ev_logo.png')}
-        style={styles.logo}
-        resizeMode="contain"
-      />
-      {/* Home content */}
+    <View style={styles.container}>
+      <LogoOverlay />
+      <View style={styles.content}>
+        <AppMapView />
+      </View>
     </View>
   );
 }
 
+// Favourites Tab
 function FavouriteTab() {
   return (
-    <View style={styles.tabContainer}>
-      <Image
-        source={require('../../../assets/images/ev_logo.png')}
-        style={styles.logo}
-        resizeMode="contain"
-      />
-      {/* Favourites content */}
+    <View style={styles.container}>
+      <LogoOverlay />
+      <View style={styles.content}>
+        {/* Add Favourites content later */}
+      </View>
     </View>
   );
 }
 
+// Profile Tab
 function ProfileTab() {
   return (
-    <View style={styles.tabContainer}>
-      <Image
-        source={require('../../../assets/images/ev_logo.png')}
-        style={styles.logo}
-        resizeMode="contain"
-      />
-      {/* Profile content */}
+    <View style={styles.container}>
+      <LogoOverlay />
+      <View style={styles.content}>
+        {/* Add Profile content later */}
+      </View>
     </View>
   );
 }
@@ -56,25 +66,34 @@ export default function HomeScreen() {
         tabBarLabelStyle: { fontSize: 12 },
       }}
     >
-      <Tab.Screen
-        name="Home"
-        component={HomeTab}
-        options={{
-          tabBarIcon: ({ color, size }) => <MaterialIcons name="home" color={color} size={size} />,
+      <Tab.Screen 
+        name="HomeTab" 
+        component={HomeTab} 
+        options={{ 
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="home" color={color} size={size} />
+          ) 
         }}
       />
-      <Tab.Screen
-        name="Favourites"
-        component={FavouriteTab}
-        options={{
-          tabBarIcon: ({ color, size }) => <MaterialIcons name="favorite" color={color} size={size} />,
+      <Tab.Screen 
+        name="Favourites" 
+        component={FavouriteTab} 
+        options={{ 
+          tabBarLabel: 'Favourites',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="favorite" color={color} size={size} />
+          ) 
         }}
       />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileTab}
-        options={{
-          tabBarIcon: ({ color, size }) => <MaterialIcons name="person" color={color} size={size} />,
+      <Tab.Screen 
+        name="Profile" 
+        component={ProfileTab} 
+        options={{ 
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="person" color={color} size={size} />
+          ) 
         }}
       />
     </Tab.Navigator>
@@ -82,14 +101,23 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  tabContainer: {
-    flex: 1,
-    alignItems: 'center',
-    paddingTop: 20,
+  container: { flex: 1 },
+  logoContainer: {
+    position: 'absolute',
+    top: 30,
+    alignSelf: 'center',
+    zIndex: 2, // always above everything
+    
+    borderRadius: 10,
+    padding: 5,
   },
   logo: {
     width: 120,
-    height: 120,
-    marginBottom: 20,
+    height: 40,
+    resizeMode: 'contain',
+  },
+  content: {
+    flex: 1,
+    marginTop: 80, // space for logo so content doesn't overlap
   },
 });
