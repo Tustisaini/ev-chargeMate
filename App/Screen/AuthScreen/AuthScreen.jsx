@@ -4,7 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 
-export default function AuthScreen() {
+
+export default function AuthScreen({ navigation }) {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +20,7 @@ export default function AuthScreen() {
 
       setEmail('');
       setPassword('');
-      alert(isSignUp ? 'Signed Up Successfully!' : 'Logged In Successfully!');
+      navigation.replace('HomeScreen'); // go to HomeScreen
     } catch (err) {
       alert(err.message);
     }
@@ -27,17 +28,26 @@ export default function AuthScreen() {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../../assets/images/ev_logo.png')} style={styles.logo} resizeMode="contain" />
+      <Image
+        source={require('../../../assets/images/ev_logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
       <Text style={styles.title}>{isSignUp ? 'Sign Up' : 'Login'}</Text>
+
       <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
       <TextInput style={styles.input} placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} />
+
       <TouchableOpacity onPress={handleAuth} style={styles.buttonContainer}>
-        <LinearGradient colors={['#20af10aa', '#b0fea8ff']} start={[0,0]} end={[1,0]} style={styles.gradientButton}>
+        <LinearGradient colors={['#20af10aa', '#b0fea8ff']} start={[0, 0]} end={[1, 0]} style={styles.gradientButton}>
           <Text style={styles.buttonText}>{isSignUp ? 'Sign Up' : 'Login'}</Text>
         </LinearGradient>
       </TouchableOpacity>
+
       <TouchableOpacity onPress={() => setIsSignUp(!isSignUp)} style={{ marginTop: 15 }}>
-        <Text style={styles.toggleText}>{isSignUp ? 'Already have an account? Login' : "Don't have an account? Sign Up"}</Text>
+        <Text style={styles.toggleText}>
+          {isSignUp ? 'Already have an account? Login' : "Don't have an account? Sign Up"}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -51,5 +61,5 @@ const styles = StyleSheet.create({
   buttonContainer: { width: '50%', borderRadius: 25, overflow: 'hidden', marginTop: 10 },
   gradientButton: { paddingVertical: 10, alignItems: 'center', borderRadius: 25 },
   buttonText: { color: 'black', fontSize: 16, fontWeight: 'bold' },
-  toggleText: { color: '#000', textAlign: 'center', marginTop: 10 },
+  toggleText: { color: '#000000ff', textAlign: 'center', marginTop: 10 },
 });

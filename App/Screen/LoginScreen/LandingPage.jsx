@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, Animated, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, Text, Animated, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
 const { width, height } = Dimensions.get('window');
 
 export default function LandingPage({ navigation }) {
@@ -11,7 +10,6 @@ export default function LandingPage({ navigation }) {
   const photoOpacity = useRef(new Animated.Value(0)).current;
   const textFade = useRef(new Animated.Value(0)).current;
   const textTranslateY = useRef(new Animated.Value(20)).current;
-  const buttonFade = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.parallel([
@@ -25,7 +23,6 @@ export default function LandingPage({ navigation }) {
         Animated.parallel([
           Animated.timing(textFade, { toValue: 1, duration: 1500, useNativeDriver: true }),
           Animated.timing(textTranslateY, { toValue: 0, duration: 1500, useNativeDriver: true }),
-          Animated.timing(buttonFade, { toValue: 1, duration: 1500, useNativeDriver: true }),
         ]).start();
       });
     });
@@ -38,17 +35,20 @@ export default function LandingPage({ navigation }) {
         style={[styles.logo, { transform: [{ scale: logoScale }, { translateY: logoTranslateY }] }]}
         resizeMode="contain"
       />
+
       <Animated.Image
         source={require('../../../assets/images/main_photo.png')}
         style={[styles.mainPhoto, { opacity: photoOpacity, transform: [{ scale: photoScale }] }]}
         resizeMode="cover"
       />
+
       <Animated.View
         style={{
           opacity: textFade,
           transform: [{ translateY: textTranslateY }],
           alignItems: 'center',
           marginTop: 30,
+          marginBottom: 40,
         }}
       >
         <Text style={styles.headline}>Your Ultimate EV Charging Station Finder</Text>
@@ -57,11 +57,12 @@ export default function LandingPage({ navigation }) {
         </Text>
       </Animated.View>
 
-      <Animated.View style={{ opacity: buttonFade, marginTop: 40 }}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Auth')}>
-          <Text style={styles.buttonText}>Get Started</Text>
-        </TouchableOpacity>
-      </Animated.View>
+      <TouchableOpacity
+        onPress={() => navigation.replace('AuthScreen')}
+        style={styles.getStartedButton}
+      >
+        <Text style={styles.getStartedText}>Get Started</Text>
+      </TouchableOpacity>
     </LinearGradient>
   );
 }
@@ -70,8 +71,8 @@ const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'flex-start', paddingTop: 80 },
   logo: { width: 200, height: 150, marginBottom: 30 },
   mainPhoto: { width: width * 0.8, height: width * 0.5, borderRadius: 20, marginTop: 30 },
-  headline: { fontSize: 25, fontFamily: 'Poppins-Bold', textAlign: 'center', color: '#222', paddingHorizontal: 20 },
+  headline: { fontSize: 25, fontWeight: 'bold', fontFamily: 'Poppins-Bold', textAlign: 'center', color: '#222', paddingHorizontal: 20 },
   subtext: { marginTop: 10, fontSize: 16, fontFamily: 'Poppins-Regular', textAlign: 'center', color: '#555', paddingHorizontal: 30, lineHeight: 20 },
-  button: { backgroundColor: '#34c759', paddingVertical: 15, paddingHorizontal: 60, borderRadius: 30 },
-  buttonText: { fontFamily: 'Poppins-Bold', fontSize: 18, color: '#fff' },
+  getStartedButton: { marginTop: 20, backgroundColor: '#27b916', paddingVertical: 12, paddingHorizontal: 40, borderRadius: 25 },
+  getStartedText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
 });
